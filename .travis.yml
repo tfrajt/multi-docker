@@ -9,10 +9,10 @@ script:
 - docker run trajt/test-multi-frontend npm run test -- --coverage
 
 after_success:
-- docker build -t trajt/multi-gw -f ./gw .
-- docker build -t trajt/multi-frontend -f ./frontend .
-- docker build -t trajt/multi-api -f ./api .
-- docker build -t trajt/multi-worker -f ./worker .
+- docker build -t trajt/multi-gw -f ./gw ./gw
+- docker build -t trajt/multi-frontend -f ./frontend ./frontend
+- docker build -t trajt/multi-api -f ./api ./api
+- docker build -t trajt/multi-worker -f ./worker ./worker
 
 # Login to Docker CLI
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
