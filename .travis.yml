@@ -3,7 +3,7 @@ services:
 - docker
 
 before_install:
-- docker build -t trajt/test-multidocker-frontend -f ./frontend/Dockerfile.dev .
+- docker build -t trajt/test-multi-frontend -f ./frontend/Dockerfile.dev ./frontend
 
 script:
 - docker run trajt/test-multidocker-frontend npm run test -- --coverage
