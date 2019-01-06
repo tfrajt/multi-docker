@@ -1,0 +1,24 @@
+sudo: required
+services:
+- docker
+
+before_install:
+- docker build -t trajt/test-multidocker-frontend -f ./frontend/Dockerfile.dev .
+
+script:
+- docker run trajt/test-multidocker-frontend npm run test -- --coverage
+
+after_success:
+- docker build -t trajt/multi-gw -f ./gw .
+- docker build -t trajt/multi-frontend -f ./frontend .
+- docker build -t trajt/multi-api -f ./api .
+- docker build -t trajt/multi-worker -f ./worker .
+
+# Login to Docker CLI
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+# Puhlish images to Docker Hub
+- docker push trajt/multi-gw
+- docker push trajt/multi-frontend
+- docker push trajt/multi-api
+- docker push trajt/multi-worker
