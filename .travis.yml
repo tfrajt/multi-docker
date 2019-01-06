@@ -3,22 +3,22 @@ services:
 - docker
 
 before_install:
-- docker build -t trajt/test-multi-frontend -f ./frontend/Dockerfile.dev ./frontend
+- docker build -t tfrajt/test-multi-frontend -f ./frontend/Dockerfile.dev ./frontend
 
 script:
 - docker run trajt/test-multi-frontend npm run test -- --coverage
 
 after_success:
-- docker build -t trajt/multi-gw ./gw
-- docker build -t trajt/multi-frontend ./frontend
-- docker build -t trajt/multi-api ./api
-- docker build -t trajt/multi-worker ./worker
+- docker build -t tfrajt/multi-gw ./gw
+- docker build -t tfrajt/multi-frontend ./frontend
+- docker build -t tfrajt/multi-api ./api
+- docker build -t tfrajt/multi-worker ./worker
 
 # Login to Docker CLI
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
 # Puhlish images to Docker Hub
-- docker push trajt/multi-gw
-- docker push trajt/multi-frontend
-- docker push trajt/multi-api
-- docker push trajt/multi-worker
+- docker push tfrajt/multi-gw
+- docker push tfrajt/multi-frontend
+- docker push tfrajt/multi-api
+- docker push tfrajt/multi-worker
